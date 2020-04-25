@@ -1,0 +1,57 @@
+﻿using System.Diagnostics;
+
+namespace System.Threading.Tasks
+{
+    public static class ProductiveRageTaskExtensions
+    {
+        # Start Here
+
+        private static Task WaitWithPossibilityOfCancellation(Task work, CancellationToken cancellationToken)
+        {
+            ThrowForNullTask(work, nameof(work));
+
+            return cancellationToken.CanBeCanceled
+                ? WaitWithPossibilityOfCancellation(work, cancellationToken.AsTask())
+                : work;
+        }
+
+        private static async Task WaitWithPossibilityOfCancellation(Task work, Task cancellerIfAny)
+        {
+            ThrowForNullTask(work, nameof(work));
+
+            if (cancellerIfAny is null)
+            {
+                await work.ConfigureAwait(false);
+                return;
+            }
+
+            var taskThatWon = await Task.WhenAny(work, cancellerIfAny).ConfigureAwait(false);
+            if (taskThatWon == cancellerIfAny)
+                throw new OperationCanceledException();
+        }
+
+        private static Task AsTask(this CancellationToken cancellationToken) // Courtesy of https://github.com/StephenCleary/AsyncEx
+        {
+            var tcs = new TaskCompletionSource<object>();
+            cancellationToken.Register(
+                () => tcs.TrySetCanceled(),
+                useSynchronizationContext: false
+            );
+            return tcs.Task;
+        }
+
+        [DebuggerStepThrough]
+        private static void ThrowForNullTask(Task value, string parameterName)
+        {
+            if (value is null)
+                throw new ArgumentNullException(parameterName);
+        }
+
+        [DebuggerStepThrough]
+        private static void ThrowForNegativeTimeout(TimeSpan value, string timeoutParameterName)
+        {
+            if (value.Ticks < 0)
+                throw new ArgumentOutOfRangeException(timeoutParameterName, "must be zero / default(meaning do-not-timeout) or a positive duration");
+        }
+    }
+}
