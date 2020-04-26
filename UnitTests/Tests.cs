@@ -24,10 +24,12 @@ namespace UnitTests
             var task2 = GetValueWithDelay(123, TimeSpan.FromMilliseconds(500), throwOperationCanceledExceptionAfterDelay: true);
             using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMilliseconds(1));
             await Assert.ThrowsAsync<OperationCanceledException>(async () => await task1.WaitForWith(task2, cancellationTokenSource.Token));
+            Assert.False(task1.IsCompleted);
+            Assert.False(task2.IsCompleted);
         }
 
         [Fact]
-        public static async Task TwoTasksWithCancellationTokenThatIsNotSetBeforeTasksComplete()
+        public static async Task TwoTasksWithCancellationTokenThatIsNotSetBeforeEitherTaskComplete()
         {
             var task1 = GetValueWithDelay("abc", TimeSpan.FromMilliseconds(500));
             var task2 = GetValueWithDelay(123, TimeSpan.FromMilliseconds(500));
@@ -37,16 +39,18 @@ namespace UnitTests
         }
 
         [Fact]
-        public static async Task TwoTasksWithCancellationTokenThatIsSetBeforeTasksComplete()
+        public static async Task TwoTasksWithCancellationTokenThatIsSetBeforeEitherTaskComplete()
         {
             var task1 = GetValueWithDelay("abc", TimeSpan.FromMilliseconds(500));
             var task2 = GetValueWithDelay(123, TimeSpan.FromMilliseconds(500));
             using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMilliseconds(1));
             await Assert.ThrowsAsync<OperationCanceledException>(async () => await task1.WaitForWith(task2, cancellationTokenSource.Token));
+            Assert.False(task1.IsCompleted);
+            Assert.False(task2.IsCompleted);
         }
 
         [Fact]
-        public static async Task TwoTasksWithTimeoutThatIsNotReachedBeforeTasksComplete()
+        public static async Task TwoTasksWithTimeoutThatIsNotReachedBeforeEitherTaskComplete()
         {
             var task1 = GetValueWithDelay("abc", TimeSpan.FromMilliseconds(500));
             var task2 = GetValueWithDelay(123, TimeSpan.FromMilliseconds(500));
@@ -56,12 +60,14 @@ namespace UnitTests
         }
 
         [Fact]
-        public static async Task TwoTasksWithTimeoutThatIsReachedBeforeTasksComplete()
+        public static async Task TwoTasksWithTimeoutThatIsReachedBeforeEitherTaskComplete()
         {
             var task1 = GetValueWithDelay("abc", TimeSpan.FromMilliseconds(500));
             var task2 = GetValueWithDelay(123, TimeSpan.FromMilliseconds(500));
             using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMilliseconds(1));
             await Assert.ThrowsAsync<OperationCanceledException>(async () => await task1.WaitForWith(task2, timeout: TimeSpan.FromMilliseconds(1)));
+            Assert.False(task1.IsCompleted);
+            Assert.False(task2.IsCompleted);
         }
 
         private static async Task<T> GetValueWithDelay<T>(T value, TimeSpan delay, bool throwOperationCanceledExceptionAfterDelay = false)
