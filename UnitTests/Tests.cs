@@ -8,7 +8,7 @@ namespace UnitTests
     public static class Tests
     {
         [Fact]
-        public static async Task TwoTasksOfStringAndIntReturnValues()
+        public static async Task TwoTasksOfStringAndIntBothComplete()
         {
             var task1 = GetValueWithDelay("abc", TimeSpan.FromMilliseconds(1));
             var task2 = GetValueWithDelay(123, TimeSpan.FromMilliseconds(1));
@@ -29,7 +29,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public static async Task TwoTasksWithCancellationTokenThatIsNotSetBeforeEitherTaskComplete()
+        public static async Task TwoTasksWithCancellationTokenThatIsNotSetAndSoBothTasksComplete()
         {
             var task1 = GetValueWithDelay("abc", TimeSpan.FromMilliseconds(500));
             var task2 = GetValueWithDelay(123, TimeSpan.FromMilliseconds(500));
@@ -50,7 +50,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public static async Task TwoTasksWithTimeoutThatIsNotReachedBeforeEitherTaskComplete()
+        public static async Task TwoTasksWithTimeoutThatIsNotReachedAndSoBothTasksComplete()
         {
             var task1 = GetValueWithDelay("abc", TimeSpan.FromMilliseconds(500));
             var task2 = GetValueWithDelay(123, TimeSpan.FromMilliseconds(500));
