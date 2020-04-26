@@ -10,6 +10,8 @@ namespace System.Threading.Tasks
             ThrowForNullTask(other, nameof(other));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other), cancellationToken).ConfigureAwait(false);
+            if (source.IsCanceled || other.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other.Result);
         }
 
@@ -20,6 +22,8 @@ namespace System.Threading.Tasks
             ThrowForNegativeTimeout(timeout, nameof(timeout));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other), Task.Delay(timeout)).ConfigureAwait(false);
+            if (source.IsCanceled || other.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other.Result);
         }
 
@@ -30,6 +34,8 @@ namespace System.Threading.Tasks
             ThrowForNullTask(other2, nameof(other2));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2), cancellationToken).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result);
         }
 
@@ -41,6 +47,8 @@ namespace System.Threading.Tasks
             ThrowForNegativeTimeout(timeout, nameof(timeout));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2), Task.Delay(timeout)).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result);
         }
 
@@ -52,6 +60,8 @@ namespace System.Threading.Tasks
             ThrowForNullTask(other3, nameof(other3));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3), cancellationToken).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result);
         }
 
@@ -64,6 +74,8 @@ namespace System.Threading.Tasks
             ThrowForNegativeTimeout(timeout, nameof(timeout));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3), Task.Delay(timeout)).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result);
         }
 
@@ -76,6 +88,8 @@ namespace System.Threading.Tasks
             ThrowForNullTask(other4, nameof(other4));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3, other4), cancellationToken).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled || other4.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result, other4.Result);
         }
 
@@ -89,6 +103,8 @@ namespace System.Threading.Tasks
             ThrowForNegativeTimeout(timeout, nameof(timeout));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3, other4), Task.Delay(timeout)).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled || other4.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result, other4.Result);
         }
 
@@ -102,6 +118,8 @@ namespace System.Threading.Tasks
             ThrowForNullTask(other5, nameof(other5));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3, other4, other5), cancellationToken).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled || other4.IsCanceled || other5.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result, other4.Result, other5.Result);
         }
 
@@ -116,6 +134,8 @@ namespace System.Threading.Tasks
             ThrowForNegativeTimeout(timeout, nameof(timeout));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3, other4, other5), Task.Delay(timeout)).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled || other4.IsCanceled || other5.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result, other4.Result, other5.Result);
         }
 
@@ -130,6 +150,8 @@ namespace System.Threading.Tasks
             ThrowForNullTask(other6, nameof(other6));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3, other4, other5, other6), cancellationToken).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled || other4.IsCanceled || other5.IsCanceled || other6.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result, other4.Result, other5.Result, other6.Result);
         }
 
@@ -145,6 +167,8 @@ namespace System.Threading.Tasks
             ThrowForNegativeTimeout(timeout, nameof(timeout));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3, other4, other5, other6), Task.Delay(timeout)).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled || other4.IsCanceled || other5.IsCanceled || other6.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result, other4.Result, other5.Result, other6.Result);
         }
 
@@ -160,6 +184,8 @@ namespace System.Threading.Tasks
             ThrowForNullTask(other7, nameof(other7));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3, other4, other5, other6, other7), cancellationToken).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled || other4.IsCanceled || other5.IsCanceled || other6.IsCanceled || other7.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result, other4.Result, other5.Result, other6.Result, other7.Result);
         }
 
@@ -176,6 +202,8 @@ namespace System.Threading.Tasks
             ThrowForNegativeTimeout(timeout, nameof(timeout));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3, other4, other5, other6, other7), Task.Delay(timeout)).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled || other4.IsCanceled || other5.IsCanceled || other6.IsCanceled || other7.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result, other4.Result, other5.Result, other6.Result, other7.Result);
         }
 
@@ -192,6 +220,8 @@ namespace System.Threading.Tasks
             ThrowForNullTask(other8, nameof(other8));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3, other4, other5, other6, other7, other8), cancellationToken).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled || other4.IsCanceled || other5.IsCanceled || other6.IsCanceled || other7.IsCanceled || other8.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result, other4.Result, other5.Result, other6.Result, other7.Result, other8.Result);
         }
 
@@ -209,6 +239,8 @@ namespace System.Threading.Tasks
             ThrowForNegativeTimeout(timeout, nameof(timeout));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3, other4, other5, other6, other7, other8), Task.Delay(timeout)).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled || other4.IsCanceled || other5.IsCanceled || other6.IsCanceled || other7.IsCanceled || other8.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result, other4.Result, other5.Result, other6.Result, other7.Result, other8.Result);
         }
 
@@ -226,6 +258,8 @@ namespace System.Threading.Tasks
             ThrowForNullTask(other9, nameof(other9));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3, other4, other5, other6, other7, other8, other9), cancellationToken).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled || other4.IsCanceled || other5.IsCanceled || other6.IsCanceled || other7.IsCanceled || other8.IsCanceled || other9.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result, other4.Result, other5.Result, other6.Result, other7.Result, other8.Result, other9.Result);
         }
 
@@ -244,6 +278,8 @@ namespace System.Threading.Tasks
             ThrowForNegativeTimeout(timeout, nameof(timeout));
 
             await WaitWithPossibilityOfCancellation(Task.WhenAll(source, other1, other2, other3, other4, other5, other6, other7, other8, other9), Task.Delay(timeout)).ConfigureAwait(false);
+            if (source.IsCanceled || other1.IsCanceled || other2.IsCanceled || other3.IsCanceled || other4.IsCanceled || other5.IsCanceled || other6.IsCanceled || other7.IsCanceled || other8.IsCanceled || other9.IsCanceled)
+                throw new OperationCanceledException();
             return (source.Result, other1.Result, other2.Result, other3.Result, other4.Result, other5.Result, other6.Result, other7.Result, other8.Result, other9.Result);
         }
 
