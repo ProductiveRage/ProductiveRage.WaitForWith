@@ -153,7 +153,7 @@ namespace Generator
             }
         }
 
-        private static IReadOnlyList<string> _availableDescriptions = new[] { "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eigth", "ninth", "tenth" }.ToList().AsReadOnly();
+        private static readonly IReadOnlyList<string> _availableDescriptions = new[] { "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eigth", "ninth", "tenth" }.ToList().AsReadOnly();
         static string GetParamaterDescription(int index)
         {
             if ((index < 0) || (index >= _availableDescriptions.Count))
