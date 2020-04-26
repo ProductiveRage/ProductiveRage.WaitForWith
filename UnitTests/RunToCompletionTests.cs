@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using static UnitTests.Helpers;
@@ -22,7 +23,8 @@ namespace UnitTests
         {
             var task1 = GetValueWithDelay("abc", TimeSpan.FromMilliseconds(500));
             var task2 = GetValueWithDelay(123, TimeSpan.FromMilliseconds(500));
-            var (result1, result2) = await task1.WaitForWith(task2);
+            using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMilliseconds(1_000));
+            var (result1, result2) = await task1.WaitForWith(task2, cancellationTokenSource.Token);
             Assert.Equal("abc", result1);
             Assert.Equal(123, result2);
         }
