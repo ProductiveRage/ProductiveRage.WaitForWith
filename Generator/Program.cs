@@ -78,6 +78,8 @@ namespace Generator
                 yield return line;
             yield return "";
             yield return initialIndentation + individualIndentation + "await WaitWithPossibilityOfCancellation(" + coreCombinedTask + ", " + cancellationTokenName + ").ConfigureAwait(false);";
+            foreach (var line in GenerateCheckForIndividualTaskCancellations())
+                yield return line;
             yield return initialIndentation + individualIndentation + returnAllResults;
             yield return initialIndentation + "}";
             yield return "";
@@ -89,6 +91,8 @@ namespace Generator
             yield return initialIndentation + individualIndentation + "ThrowForNegativeTimeout(" + timeoutParameterName + ", nameof(" + timeoutParameterName + "));";
             yield return "";
             yield return initialIndentation + individualIndentation + "await WaitWithPossibilityOfCancellation(" + coreCombinedTask + ", Task.Delay(" + timeoutParameterName + ")).ConfigureAwait(false);";
+            foreach (var line in GenerateCheckForIndividualTaskCancellations())
+                yield return line;
             yield return initialIndentation + individualIndentation + returnAllResults;
             yield return initialIndentation + "}";
 
@@ -104,6 +108,12 @@ namespace Generator
                 yield return initialIndentation + "{";
                 foreach (var name in allTaskNames)
                     yield return initialIndentation + individualIndentation + "ThrowForNullTask(" + name + ", nameof(" + name + "));";
+            }
+
+            IEnumerable<string> GenerateCheckForIndividualTaskCancellations()
+            {
+                yield return initialIndentation + individualIndentation + "if (" + string.Join(" || ", allTaskNames.Select(name => name + ".IsCanceled")) + ")";
+                yield return initialIndentation + individualIndentation + individualIndentation + "throw new OperationCanceledException();";
             }
         }
     }
