@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DocumentationFile>D:\GitHub\ProductiveRage.WaitForWith\WaitForWith\WaitForWith.xml</DocumentationFile>
+    <Nullable>enable</Nullable>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -20,6 +22,7 @@
 
   <ItemGroup>
     <None Include="ProductiveRageAvatar.jpg" Pack="true" PackagePath="ProductiveRageAvatar.jpg" Visible="false" />
+    <None Include="WaitForWith.xml" Visible="false" />
   </ItemGroup>
 
 </Project>
